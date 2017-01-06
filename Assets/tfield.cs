@@ -222,11 +222,12 @@ public class tfield : MonoBehaviour {
         {
             anscnt--;
             Debug.Log("[Tfield] One down! " + anscnt.ToString() + " left!");
-            info[mode].text = "✓";
+            verif[mode] = 0;
+			info[mode].text = "✓";
         } 
         else
         {
-            Debug.Log("[Tfield] Incorrect!");
+            Debug.Log("[Tfield] Incorrect or repeat!");
             GetComponent<KMBombModule>().HandleStrike();
             info[mode].text = "X";
         }

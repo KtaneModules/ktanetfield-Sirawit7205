@@ -13,11 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WorkshopPublishedFileID: 835806625
   Title: Text Field
-  Description: 'Tons of ruies to check, but should be trivial if your eyes and communications
-    are good.
-
-
-    Thanks to Timwi for helping me with this mod.'
+  Description: "Tons of rules to check, but should be trivial if your eyes and communications
+    are good. \r\n\r\nThanks to Timwi for helping me with this mod. \r\n\r\nmodule
+    ID: tfield \r\n\r\nManual: http://ktane.timwi.de/PDF/Text%20Field.pdf "
   PreviewImage: {fileID: 2800000, guid: c341c2a214a4ae44da88b67819252677, type: 3}
   Tags:
   - Regular Module
