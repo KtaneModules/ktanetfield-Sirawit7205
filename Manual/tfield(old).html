@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>Text field — Keep Talking and Nobody Explodes Module</title>
+    <meta content="initial-scale=1" name="viewport">
+    <link href='https://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
+    <link href="css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Text Field</span>
+            </div>
+            <div class="page-content">
+                <img src="img/tfield.svg" class="diagram">
+                <h2>On the Subject of Text Field</h2>
+                <p class="flavour-text">
+                    It's trivial. Just 6 letters out there! Wait, what did you say? Each letter has 5 rules to check? Nevermind then.
+                <ul>
+                    <li>This modules contains 3*4 letter field, all letters in the field will be the same. (Available letters: A-F)
+                    <li>Based on the letter, see <b>Section A</b> and follows the ruleset for that letter from top to bottom. You will get table name from the first rule that applies.
+                    <li>Go to <b>Section B</b> and find the corresponding table based on the last step.
+                    <li>Select all letters in the field that matches the table. The module will disarm when all matched letters have been selected.
+                </ul>
+                <p class="appendix-reference">See Appendix A for indicator identification reference.<br />See Appendix B for battery identification reference.<br />See Appendix C for port identification reference.
+                <br />
+				<p class="Section A">
+				<u><b>Section A: Letters rulesets</b></u><br /><br />
+				<span style="float:left; width:50%; text-align:left">
+					<b>Letter A</b><br />
+						- Has CLR indicator: 1459<br />
+						- Has more than 2 batteries: BBFF<br />
+						- Has 1 battery: 7F67<br />
+						- Has FRK indicator: DC52<br />
+						- Otherwise: A0C1<br /><br />
+					<b>Letter C</b><br />
+						- Has DVI-D port: AA12<br />
+						- Has 2 batteries: FB01<br />
+						- No vowels in serial number: DC52<br />
+						- Has CAR indicator: 1459<br />
+						- Otherwise: 7F67<br /><br />
+					<b>Letter E</b><br />
+						- Has less than 3 batteries: 7F67<br />
+						- No stereo RCA port: AA12<br />
+						- Has BOB indicator: A0C1<br />
+						- Has RJ-45 port: BBFF<br />
+						- Otherwise: AC62<br /><br />
+				</span>
+				<span style="float:left; width:50%; text-align:left">
+					<b>Letter B</b><br />
+						- No battery: 965A<br />
+						- No letters in serial number: 1459<br />
+						- No Serial port: DC52<br />
+						- Has TRN indicator: A0C1<br />
+						- Otherwise: 7F67<br /><br />
+					<b>Letter D</b><br />
+						- Has Parallel port: FB01<br />
+						- Has less than 2 batteries: AA12<br />
+						- Has SIG indicator: BBFF<br />
+						- No indicator: 965A<br />
+						- Otherwise: 1459<br /><br />
+					<b>Letter F</b><br />
+						- No Serial port: DC52<br />
+						- Has vowels in serial number: A0C1<br />
+						- Has IND indicator: 1459<br />
+						- Has numbers in serial number: FB01<br />
+						- Otherwise: AA12<br /><br />
+				</span>
+            </div>
+        </div>
+		<div class="page page-bg-02">
+			<div class="page-content">
+				<u><b>Section B: Table listings</b></u><br /><br />
+				<span style="float:left; width:50%; text-align:left">
+					<b>Table FB01</b><br />
+					<table class="aa">
+						<tr><td class="aa-1234">D</td><td class="aa-1234">C</td><td class="aa-1234">F</td><td class="aa-1234">A</td></tr>
+						<tr><td class="aa-1234">B</td><td class="aa-1234">E</td><td class="aa-1234">F</td><td class="aa-1234">F</td></tr>
+						<tr><td class="aa-1234">B</td><td class="aa-1234">B</td><td class="aa-1234">B</td><td class="aa-1234">C</td></tr>
+					</table><br /><br />
+					
+					<b>Table 965A</b><br />
+					<table class="aa">
+						<tr><td class="aa-1234">C</td><td class="aa-1234">B</td><td class="aa-1234">E</td><td class="aa-1234">F</td></tr>
+						<tr><td class="aa-1234">E</td><td class="aa-1234">B</td><td class="aa-1234">F</td><td class="aa-1234">E</td></tr>
+						<tr><td class="aa-1234">D</td><td class="aa-1234">C</td><td class="aa-1234">A</td><td class="aa-1234">A</td></tr>
+					</table><br /><br />
+					
+					<b>Table 1459</b><br />
+					<table class="aa">
+						<tr><td class="aa-1234">B</td><td class="aa-1234">A</td><td class="aa-1234">B</td><td class="aa-1234">B</td></tr>
+						<tr><td class="aa-1234">C</td><td class="aa-1234">D</td><td class="aa-1234">F</td><td class="aa-1234">D</td></tr>
+						<tr><td class="aa-1234">D</td><td class="aa-1234">F</td><td class="aa-1234">C</td><td class="aa-1234">E</td></tr>
+					</table><br /><br />
+					
+					<b>Table BBFF</b><br />
+					<table class="aa">
+						<tr><td class="aa-1234">D</td><td class="aa-1234">A</td><td class="aa-1234">B</td><td class="aa-1234">F</td></tr>
+						<tr><td class="aa-1234">D</td><td class="aa-1234">F</td><td class="aa-1234">B</td><td class="aa-1234">E</td></tr>
+						<tr><td class="aa-1234">C</td><td class="aa-1234">E</td><td class="aa-1234">B</td><td class="aa-1234">A</td></tr>
+					</table><br /><br />
+				</span>
+				<span style="float:left; width:50%; text-align:left">
+					<b>Table AC62</b><br />
+					<table class="aa">
+						<tr><td class="aa-1234">C</td><td class="aa-1234">B</td><td class="aa-1234">D</td><td class="aa-1234">E</td></tr>
+						<tr><td class="aa-1234">A</td><td class="aa-1234">F</td><td class="aa-1234">D</td><td class="aa-1234">C</td></tr>
+						<tr><td class="aa-1234">B</td><td class="aa-1234">E</td><td class="aa-1234">B</td><td class="aa-1234">D</td></tr>
+					</table><br /><br />
+					
+					<b>Table 7F67</b><br />
+					<table class="aa">
+						<tr><td class="aa-1234">A</td><td class="aa-1234">D</td><td class="aa-1234">C</td><td class="aa-1234">B</td></tr>
+						<tr><td class="aa-1234">A</td><td class="aa-1234">C</td><td class="aa-1234">B</td><td class="aa-1234">C</td></tr>
+						<tr><td class="aa-1234">A</td><td class="aa-1234">E</td><td class="aa-1234">F</td><td class="aa-1234">A</td></tr>
+					</table><br /><br />
+					
+					<b>Table A0C1</b><br />
+					<table class="aa">
+						<tr><td class="aa-1234">E</td><td class="aa-1234">C</td><td class="aa-1234">F</td><td class="aa-1234">A</td></tr>
+						<tr><td class="aa-1234">C</td><td class="aa-1234">F</td><td class="aa-1234">B</td><td class="aa-1234">D</td></tr>
+						<tr><td class="aa-1234">F</td><td class="aa-1234">F</td><td class="aa-1234">B</td><td class="aa-1234">C</td></tr>
+					</table><br /><br />
+					
+					<b>Table AA12</b><br />
+					<table class="aa">
+						<tr><td class="aa-1234">B</td><td class="aa-1234">E</td><td class="aa-1234">A</td><td class="aa-1234">B</td></tr>
+						<tr><td class="aa-1234">E</td><td class="aa-1234">D</td><td class="aa-1234">F</td><td class="aa-1234">A</td></tr>
+						<tr><td class="aa-1234">B</td><td class="aa-1234">C</td><td class="aa-1234">E</td><td class="aa-1234">C</td></tr>
+					</table><br /><br />
+				</span>
+			</div>
+		</div>
+    </div>
+</body>
+</html>
