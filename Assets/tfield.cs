@@ -9,7 +9,7 @@ public class tfield : MonoBehaviour {
     public TextMesh[] info;
     public int[] port, indc, batt, keys, verif;
     public string serl;
-    public bool _hasvowels = false;
+    public bool _hasvowels = false, _lightson = false;
     public int select, anscnt = 0;
 
     public int[,] truth = new int[8, 12] {
@@ -93,7 +93,7 @@ public class tfield : MonoBehaviour {
 
     void Init()
     {
-        int temp = Random.Range(0, 5) + 65;
+        int temp = Random.Range(0, 6) + 65;
         for (int i = 0; i < 12; i++)
         {
             info[i].text = char.ConvertFromUtf32(temp);
@@ -158,6 +158,7 @@ public class tfield : MonoBehaviour {
             char ver = (char) vt;
             if (ver.ToString() == info[i].text) { anscnt++; verif[i] = 1; }
         }
+        _lightson = true;
         Debug.Log("[Tfield] ready! Answers generated!");
     }
 
@@ -215,8 +216,8 @@ public class tfield : MonoBehaviour {
 
     void HandlePress(int mode)
     {
-        //Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, buttons[mode].transform);
-        //buttons[mode].AddInteractionPunch();
+        Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, buttons[mode].transform);
+        buttons[mode].AddInteractionPunch();
         Debug.Log("[Tfield] Button " + mode.ToString() + " was pressed.");
         if (verif[mode] == 1)
         {
@@ -231,7 +232,7 @@ public class tfield : MonoBehaviour {
             GetComponent<KMBombModule>().HandleStrike();
             info[mode].text = "X";
         }
-        if(anscnt == 0)
+        if(anscnt == 0 && _lightson == true)
         {
             Debug.Log("[Tfield] Module disarmed.");
             GetComponent<KMBombModule>().HandlePass();
