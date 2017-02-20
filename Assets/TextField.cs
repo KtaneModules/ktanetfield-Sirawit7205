@@ -29,8 +29,12 @@ public class TextField : MonoBehaviour
         { 'B', 'E', 'A', 'B', 'E', 'D', 'F', 'A', 'B', 'C', 'E', 'C' }
     };
 
+    private static int _moduleIdCounter = 1;
+    private int _moduleId;
+
     void Start()
     {
+        _moduleId = _moduleIdCounter++;
         GetComponent<KMBombModule>().OnActivate += Init;
     }
 
@@ -124,14 +128,14 @@ public class TextField : MonoBehaviour
 
         _hasvowels = serialNumber.Any("AEIOU".Contains);
         var answer = generateAns(serialNumber, letter - 65);
-        Debug.LogFormat("[Text Field] Letter is {0}.", (char) letter);
+        Debug.LogFormat("[Text Field #{1}] Letter is {0}.", (char) letter, _moduleId);
         for (int i = 0; i < 12; i++)
         {
             if (_solutionTable[answer, i] == letter)
             {
                 _answerCount++;
                 _mustPressButton[i] = true;
-                Debug.LogFormat("[Text Field] Must press button at ({0}, {1}).", (i % 4) + 1, (i / 4) + 1);
+                Debug.LogFormat("[Text Field #{2}] Must press button at ({0}, {1}).", (i % 4) + 1, (i / 4) + 1, _moduleId);
             }
         }
         _lightson = true;
@@ -193,23 +197,23 @@ public class TextField : MonoBehaviour
     {
         Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, Buttons[btnIx].transform);
         Buttons[btnIx].AddInteractionPunch();
-        Debug.LogFormat("[Text Field] Button at ({0}, {1}) was pressed.", btnIx % 4 + 1, btnIx / 4 + 1);
+        Debug.LogFormat("[Text Field #{2}] Button at ({0}, {1}) was pressed.", btnIx % 4 + 1, btnIx / 4 + 1, _moduleId);
         if (_mustPressButton[btnIx])
         {
             _answerCount--;
-            Debug.LogFormat("[Text Field] One down, {0} left.", _answerCount);
+            Debug.LogFormat("[Text Field #{1}] One down, {0} left.", _answerCount, _moduleId);
             _mustPressButton[btnIx] = false;
             ButtonLabels[btnIx].text = "✓";
         }
         else
         {
-            Debug.Log("[Text Field] Incorrect or repeat!");
+            Debug.LogFormat("[Text Field #{0}] Incorrect or repeat!", _moduleId);
             GetComponent<KMBombModule>().HandleStrike();
             ButtonLabels[btnIx].text = "✗";
         }
         if (_answerCount == 0 && _lightson)
         {
-            Debug.Log("[Text Field] Module disarmed.");
+            Debug.LogFormat("[Text Field #{0}] Module disarmed.", _moduleId);
             GetComponent<KMBombModule>().HandlePass();
         }
     }
