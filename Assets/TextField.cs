@@ -17,7 +17,7 @@ public class TextField : MonoBehaviour
     private Dictionary<string, int> _portCounts = new Dictionary<string, int> { { "Serial", 0 }, { "DVI", 0 }, { "Parallel", 0 }, { "PS2", 0 }, { "StereoRCA", 0 }, { "RJ45", 0 } };
     private HashSet<string> _litIndicators = new HashSet<string>();
     private int _numBatteries;
-    private bool[] _mustPressButton = new bool[12];
+    private bool[] _mustPressButton = new bool[12], _pressedButton = new bool[12];
 
     private char[,] _solutionTable = new char[8, 12] {
         { 'D', 'C', 'F', 'A', 'B', 'E', 'F', 'F', 'B', 'B', 'B', 'C' },
@@ -199,6 +199,7 @@ public class TextField : MonoBehaviour
         Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, Buttons[btnIx].transform);
         Buttons[btnIx].AddInteractionPunch();
         Debug.LogFormat("[Text Field #{2}] Button at ({0}, {1}) was pressed.", btnIx % 4 + 1, btnIx / 4 + 1, _moduleId);
+        _pressedButton[btnIx] = true;
         if (_mustPressButton[btnIx])
         {
             _answerCount--;
@@ -222,13 +223,28 @@ public class TextField : MonoBehaviour
     KMSelectable[] ProcessTwitchCommand(string command)
     {
         int pos;
+        var btn = new List<KMSelectable>();
+
         command = command.ToLowerInvariant().Trim();
 
-        if(Regex.IsMatch(command, @"^press [1-4],[1-3]$"))
+        if(command.StartsWith("press "))
         {
             command = command.Substring(6);
-            pos = (4 * int.Parse(command[2].ToString())) + int.Parse(command[0].ToString()) - 5;
-            return new[] { Buttons[pos] };
+
+            foreach (var cell in command.Trim().Split(new[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries))
+            {
+                if (Regex.IsMatch(cell, @"^[1-4],[1-3]$"))
+                {
+                    pos = (4 * int.Parse(cell[2].ToString())) + int.Parse(cell[0].ToString()) - 5;
+                    if (_pressedButton[pos] == false)
+                    {
+                        _pressedButton[pos] = true;
+                        btn.Add(Buttons[pos]);
+                    }
+                }
+            }
+
+            if (btn.Count > 0) return btn.ToArray();
         }
 
         return null;
