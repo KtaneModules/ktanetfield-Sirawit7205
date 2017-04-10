@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -216,5 +217,20 @@ public class TextField : MonoBehaviour
             Debug.LogFormat("[Text Field #{0}] Module disarmed.", _moduleId);
             GetComponent<KMBombModule>().HandlePass();
         }
+    }
+
+    KMSelectable[] ProcessTwitchCommand(string command)
+    {
+        int pos;
+        command = command.ToLowerInvariant().Trim();
+
+        if(Regex.IsMatch(command, @"^press [1-4],[1-3]$"))
+        {
+            command = command.Substring(6);
+            pos = (4 * int.Parse(command[2].ToString())) + int.Parse(command[0].ToString()) - 5;
+            return new[] { Buttons[pos] };
+        }
+
+        return null;
     }
 }

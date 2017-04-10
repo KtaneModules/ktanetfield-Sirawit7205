@@ -23,3 +23,4 @@
 [0312/235146.250:ERROR:process_info.cc(608)] range at 0xff0b7000, size 0xf84 fully unreadable
 [0312/235146.253:ERROR:process_info.cc(608)] range at 0xff0b4000, size 0xf84 fully unreadable
 [0312/235146.255:ERROR:process_info.cc(608)] range at 0xff0b1000, size 0xf84 fully unreadable
+[0324/015603.994:ERROR:exception_handler_server.cc(524)] ConnectNamedPipe: The pipe is being closed. (0xE8)
