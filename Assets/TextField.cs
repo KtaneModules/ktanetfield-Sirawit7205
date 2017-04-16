@@ -11,7 +11,7 @@ public class TextField : MonoBehaviour
     public TextMesh[] ButtonLabels;
     public KMBombInfo BombInfo;
 
-    private bool _hasvowels = false, _lightson = false;
+    private bool _hasvowels = false, _lightson = false, _isSolved = false;
     private int _answerCount = 0;
 
     private Dictionary<string, int> _portCounts = new Dictionary<string, int> { { "Serial", 0 }, { "DVI", 0 }, { "Parallel", 0 }, { "PS2", 0 }, { "StereoRCA", 0 }, { "RJ45", 0 } };
@@ -198,25 +198,38 @@ public class TextField : MonoBehaviour
     {
         Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, Buttons[btnIx].transform);
         Buttons[btnIx].AddInteractionPunch();
-        Debug.LogFormat("[Text Field #{2}] Button at ({0}, {1}) was pressed.", btnIx % 4 + 1, btnIx / 4 + 1, _moduleId);
-        _pressedButton[btnIx] = true;
-        if (_mustPressButton[btnIx])
-        {
-            _answerCount--;
-            Debug.LogFormat("[Text Field #{1}] One down, {0} left.", _answerCount, _moduleId);
-            _mustPressButton[btnIx] = false;
-            ButtonLabels[btnIx].text = "✓";
-        }
-        else
-        {
-            Debug.LogFormat("[Text Field #{0}] Incorrect or repeat!", _moduleId);
-            GetComponent<KMBombModule>().HandleStrike();
-            ButtonLabels[btnIx].text = "✗";
-        }
-        if (_answerCount == 0 && _lightson)
-        {
-            Debug.LogFormat("[Text Field #{0}] Module disarmed.", _moduleId);
-            GetComponent<KMBombModule>().HandlePass();
+
+        if (!_isSolved && _lightson)
+        { 
+            if (_answerCount != 0)
+            {
+                Debug.LogFormat("[Text Field #{2}] Button at ({0}, {1}) was pressed.", btnIx % 4 + 1, btnIx / 4 + 1, _moduleId);
+
+                if (_pressedButton[btnIx]) return;
+
+                if (_mustPressButton[btnIx])
+                {
+                    _answerCount--;
+                    Debug.LogFormat("[Text Field #{1}] One down, {0} left.", _answerCount, _moduleId);
+                    _mustPressButton[btnIx] = false;
+                    ButtonLabels[btnIx].text = "✓";
+                }
+                else
+                {
+                    Debug.LogFormat("[Text Field #{0}] Incorrect!", _moduleId);
+                    GetComponent<KMBombModule>().HandleStrike();
+                    ButtonLabels[btnIx].text = "✗";
+                }
+
+                _pressedButton[btnIx] = true;
+
+                if (_answerCount == 0)
+                {
+                    Debug.LogFormat("[Text Field #{0}] Module disarmed.", _moduleId);
+                    GetComponent<KMBombModule>().HandlePass();
+                    _isSolved = true;
+                }
+            }
         }
     }
 
@@ -236,11 +249,7 @@ public class TextField : MonoBehaviour
                 if (Regex.IsMatch(cell, @"^[1-4],[1-3]$"))
                 {
                     pos = (4 * int.Parse(cell[2].ToString())) + int.Parse(cell[0].ToString()) - 5;
-                    if (_pressedButton[pos] == false)
-                    {
-                        _pressedButton[pos] = true;
-                        btn.Add(Buttons[pos]);
-                    }
+                    btn.Add(Buttons[pos]);
                 }
             }
 
