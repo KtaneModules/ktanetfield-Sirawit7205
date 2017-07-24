@@ -111,7 +111,10 @@ public class TextField : MonoBehaviour
 
         foreach (string portInfo in BombInfo.QueryWidgets(KMBombInfo.QUERYKEY_GET_PORTS, null))
             foreach (string portName in JsonConvert.DeserializeObject<Dictionary<string, string[]>>(portInfo)["presentPorts"])
-                _portCounts[portName] = _portCounts[portName] + 1;
+            {
+                if(_portCounts.ContainsKey(portName))
+                    _portCounts[portName] = _portCounts[portName] + 1;
+            }
 
         foreach (string batteryInfo in BombInfo.QueryWidgets(KMBombInfo.QUERYKEY_GET_BATTERIES, null))
             _numBatteries += JsonConvert.DeserializeObject<Dictionary<string, int>>(batteryInfo)["numbatteries"];
