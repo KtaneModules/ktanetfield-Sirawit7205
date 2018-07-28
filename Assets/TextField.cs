@@ -17,9 +17,9 @@ public class TextField : MonoBehaviour
     private Dictionary<string, int> _portCounts = new Dictionary<string, int> { { "Serial", 0 }, { "DVI", 0 }, { "Parallel", 0 }, { "PS2", 0 }, { "StereoRCA", 0 }, { "RJ45", 0 } };
     private HashSet<string> _litIndicators = new HashSet<string>();
     private int _numBatteries;
-    private bool[] _mustPressButton = new bool[12], _pressedButton = new bool[12];
+    private readonly bool[] _mustPressButton = new bool[12], _pressedButton = new bool[12];
 
-    private char[,] _solutionTable = new char[8, 12] {
+    private readonly char[,] _solutionTable = new char[8, 12] {
         { 'D', 'C', 'F', 'A', 'B', 'E', 'F', 'F', 'B', 'B', 'B', 'C' },
         { 'C', 'B', 'E', 'F', 'E', 'B', 'F', 'E', 'D', 'C', 'A', 'A' },
         { 'B', 'A', 'B', 'B', 'C', 'D', 'F', 'D', 'D', 'F', 'C', 'E' },
@@ -131,7 +131,7 @@ public class TextField : MonoBehaviour
             serialNumber = JsonConvert.DeserializeObject<Dictionary<string, string>>(serialNumberInfo)["serial"];
 
         _hasvowels = serialNumber.Any("AEIOU".Contains);
-        var answer = generateAns(serialNumber, letter - 65);
+        var answer = GenerateAns(serialNumber, letter - 65);
         Debug.LogFormat("[Text Field #{1}] Letter is {0}.", (char) letter, _moduleId);
         for (int i = 0; i < 12; i++)
         {
@@ -145,7 +145,7 @@ public class TextField : MonoBehaviour
         _lightson = true;
     }
 
-    int generateAns(string serialNumber, int ruleset)
+    int GenerateAns(string serialNumber, int ruleset)
     {
         if (ruleset == 0)
         {
