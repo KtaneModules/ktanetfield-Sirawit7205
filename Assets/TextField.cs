@@ -236,6 +236,10 @@ public class TextField : MonoBehaviour
         }
     }
 
+#pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"Press the button at column 2 row 3 and column 1 row 4 with “!{0} 2,3 1,4” (Separate multiple buttons with spaces).";
+#pragma warning restore 414
+
     KMSelectable[] ProcessTwitchCommand(string command)
     {
         int pos;
